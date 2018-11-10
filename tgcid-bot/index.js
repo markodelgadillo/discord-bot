@@ -2,7 +2,7 @@
 
 // Logging in to Discord
 const Discord = require('discord.js');
-const { prefix, token, keyword } = require('./config.json');
+const { token } = require('./config.json');
 const client = new Discord.Client();
 
 client.once('ready', () => {
@@ -10,9 +10,8 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
-	console.log(message.content);
-	if (message.content.includes(`${prefix}`)) {
-		const command = message.content.match(/([!])\w+/)[0].substr(1);
+	if (message.content.match(/([!])\w+/g)) {
+		const command = message.content.match(/([!])\w+/g)[0].substr(1);
 		switch (command) {
 		case 'destroy':
 			message.channel.send('Whom shall I destroy, Master?');
@@ -24,15 +23,9 @@ client.on('message', message => {
 			break;
 		}
 	}
-	// only detecting the first word of the array
-	else if (message.content.includes(...keyword.vulgar)) {
-		console.log('It is vulgar!');
-		const word = keyword.vulgar.filter(vulgarity =>
-			message.content.inlcudes(vulgarity)
-		);
-		console.log(word + ' here is the current word');
-		switch (word[0]) {
-		case 'fuck you':
+	else {
+		switch (message.content) {
+		case 'fuck':
 			message.channel.send(
 				'There will be no sexual intercourse here on MY watch!'
 			);
