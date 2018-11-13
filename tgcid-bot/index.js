@@ -11,6 +11,10 @@ client.once('ready', () => {
 
 client.on('message', message => {
 	if (message.author.bot) return;
+	const args = message.content
+		.slice(1)
+		.split(' ')
+		.splice(0, 1);
 
 	if (message.content.match(/([!])\w+/g)) {
 		const command = message.content.match(/([!])\w+/g)[0].substr(1);
@@ -22,6 +26,14 @@ client.on('message', message => {
 			message.channel.send(
 				'How may the Butt Stallion, the horse to end all horses help you?'
 			);
+			break;
+		case 'args-info':
+			if (!args.length) {
+				return message.channel.send(
+					`You didn't provide any arguments, ${message.author}!`
+				);
+			}
+			message.channel.send(`Command name: ${command}\nArguments: ${args}`);
 			break;
 		}
 	}
