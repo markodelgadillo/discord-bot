@@ -10,6 +10,8 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
+	if (message.author.bot) return;
+
 	if (message.content.match(/([!])\w+/g)) {
 		const command = message.content.match(/([!])\w+/g)[0].substr(1);
 		switch (command) {
