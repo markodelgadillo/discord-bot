@@ -10,8 +10,16 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
+	// returning a combination of responses
+	if (message.author.bot) return;
+	console.log('this is the message: ' + message.content);
+
+	const args = message.content.split(' ').slice(1);
+	console.log(args);
+
 	if (message.content.match(/([!])\w+/g)) {
 		const command = message.content.match(/([!])\w+/g)[0].substr(1);
+		console.log('Command: ' + command);
 		switch (command) {
 		case 'destroy':
 			message.channel.send('Whom shall I destroy, Master?');
@@ -20,6 +28,17 @@ client.on('message', message => {
 			message.channel.send(
 				'How may the Butt Stallion, the horse to end all horses help you?'
 			);
+			break;
+		case 'argsInfo':
+			if (!args.length) {
+				return message.channel.send(
+					`You didn't provide any arguments, ${message.author}!`
+				);
+			}
+			else if (args[0] === 'foo') {
+				return message.channel.send('bar');
+			}
+			message.channel.send(`First argument: ${args[0]}`);
 			break;
 		}
 	}
