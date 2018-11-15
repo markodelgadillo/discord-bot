@@ -21,15 +21,17 @@ client.on('message', message => {
 		const command = message.content.match(/([!])\w+/g)[0].substr(1);
 		console.log('Command: ' + command);
 		switch (command) {
-		case 'destroy':
+		case 'destroy': {
 			message.channel.send('Whom shall I destroy, Master?');
 			break;
-		case 'butthelp':
+		}
+		case 'butthelp': {
 			message.channel.send(
 				'How may the Butt Stallion, the horse to end all horses help you?'
 			);
 			break;
-		case 'argsInfo':
+		}
+		case 'argsInfo': {
 			if (!args.length) {
 				return message.channel.send(
 					`You didn't provide any arguments, ${message.author}!`
@@ -40,6 +42,12 @@ client.on('message', message => {
 			}
 			message.channel.send(`First argument: ${args[0]}`);
 			break;
+		}
+		case 'kick': {
+			const taggedUser = message.mentions.users.first();
+			message.channel.send(`You wanted to kick: ${taggedUser.username}`);
+			break;
+		}
 		}
 	}
 	else {
