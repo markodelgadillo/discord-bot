@@ -44,9 +44,16 @@ client.on('message', message => {
 			break;
 		}
 		case 'kick': {
-			const taggedUser = message.mentions.users.first();
-			message.channel.send(`You wanted to kick: ${taggedUser.username}`);
-			break;
+			if (!message.mentions.users.size) {
+				return message.reply(
+					'You need to tag a user you wish to exile from the land of TGCID!'
+				);
+			}
+			else {
+				const taggedUser = message.mentions.users.first();
+				message.channel.send(`You wanted to kick: ${taggedUser.username}`);
+				break;
+			}
 		}
 		}
 	}
