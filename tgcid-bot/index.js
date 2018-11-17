@@ -21,15 +21,17 @@ client.on('message', message => {
 		const command = message.content.match(/([!])\w+/g)[0].substr(1);
 		console.log('Command: ' + command);
 		switch (command) {
-		case 'destroy':
+		case 'destroy': {
 			message.channel.send('Whom shall I destroy, Master?');
 			break;
-		case 'butthelp':
+		}
+		case 'butthelp': {
 			message.channel.send(
 				'How may the Butt Stallion, the horse to end all horses help you?'
 			);
 			break;
-		case 'argsInfo':
+		}
+		case 'argsInfo': {
 			if (!args.length) {
 				return message.channel.send(
 					`You didn't provide any arguments, ${message.author}!`
@@ -41,9 +43,27 @@ client.on('message', message => {
 			message.channel.send(`First argument: ${args[0]}`);
 			break;
 		}
+		case 'kick': {
+			const taggedUser = message.mentions.users.first();
+			if (!message.mentions.users.size) {
+				return message.reply(
+					'You need to tag a user you wish to exile from the land of TGCID!'
+				);
+			}
+			else if (message.author === taggedUser) {
+				return message.reply(
+					'Why do you hate yourself? Butt Stallion loves you!'
+				);
+			}
+			else {
+				message.channel.send(`You wanted to kick: ${taggedUser.username}`);
+				break;
+			}
+		}
+		}
 	}
 	else {
-		switch (message.content) {
+		switch (message.content.toLowerCase()) {
 		case 'fuck':
 			message.channel.send(
 				'There will be no sexual intercourse here on MY watch!'
@@ -58,7 +78,11 @@ client.on('message', message => {
 		case 'ass':
 			message.channel.send('Someone talking about butts!?');
 			break;
+		case 'shut up butt stallion':
+			message.reply('Don\'t make me puke out rainbows right into your hole!');
+			break;
 		}
+		return;
 	}
 });
 
