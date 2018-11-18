@@ -4,6 +4,7 @@
 const Discord = require('discord.js');
 const { token } = require('./config.json');
 const client = new Discord.Client();
+// const { embed } = require('./embed.js');
 
 client.once('ready', () => {
 	console.log('Ready!');
@@ -15,7 +16,7 @@ client.on('message', message => {
 	console.log('this is the message: ' + message.content);
 
 	const args = message.content.split(' ').slice(1);
-	console.log(args);
+	console.log(typeof args);
 
 	if (message.content.match(/([!])\w+/g)) {
 		const command = message.content.match(/([!])\w+/g)[0].substr(1);
@@ -55,9 +56,17 @@ client.on('message', message => {
 					'Why do you hate yourself? Butt Stallion loves you!'
 				);
 			}
+			else if (taggedUser.toString() === '<@508202122857283596>') {
+				const embed = {
+					description:
+							'I found your picture on the internets! [Check it out here! ](https://i.pinimg.com/originals/af/00/da/af00da5c5a181859194132134b76a7e4.jpg)',
+				};
+				return message.reply({ embed });
+			}
 			else {
-				message.channel.send(`You wanted to kick: ${taggedUser.username}`);
-				break;
+				return message.channel.send(
+					`You wanted to kick: ${taggedUser.username}`
+				);
 			}
 		}
 		}
