@@ -32,6 +32,23 @@ client.on('message', message => {
 			);
 			break;
 		}
+		case 'avatar': {
+			if (!message.mentions.users.size) {
+				return message.channel.send(
+					`Your avatar: ${message.author.displayAvatarURL}`
+				);
+			}
+			else {
+				const taggedUser = message.mentions.users.first();
+				return message.channel.send(
+					`${taggedUser}'s avatar: (!${
+						taggedUser.displayAvatarURL
+					} ? ${taggedUser} is boring and doesn't use an avatar... : ${
+						message.mentions.users.first.displayAvatarURL
+					}`
+				);
+			}
+		}
 		case 'argsInfo': {
 			if (!args.length) {
 				return message.channel.send(
@@ -41,8 +58,7 @@ client.on('message', message => {
 			else if (args[0] === 'foo') {
 				return message.channel.send('bar');
 			}
-			message.channel.send(`First argument: ${args[0]}`);
-			break;
+			return message.channel.send(`First argument: ${args[0]}`);
 		}
 		case 'kick': {
 			const taggedUser = message.mentions.users.first();
