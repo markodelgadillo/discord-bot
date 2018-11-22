@@ -38,16 +38,18 @@ client.on('message', message => {
 					`Your avatar: ${message.author.displayAvatarURL}`
 				);
 			}
+			// ************** fix this ternary ***********************
 			else {
 				const taggedUser = message.mentions.users.first();
 				return message.channel.send(
-					`${taggedUser}'s avatar: (!${
-						taggedUser.displayAvatarURL
-					} ? ${taggedUser} is boring and doesn't use an avatar... : ${
-						message.mentions.users.first.displayAvatarURL
+					`${taggedUser}'s avatar: ${
+						taggedUser.displayAvatarURL.match('assets')
+							? `${taggedUser} is boring and doesn't use an avatar...`
+							: `${taggedUser.displayAvatarURL}`
 					}`
 				);
 			}
+			// ********************************************************
 		}
 		case 'argsInfo': {
 			if (!args.length) {
